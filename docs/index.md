@@ -1,37 +1,17 @@
 ---
-layout: home
-
-hero:
-  name: Kokomi-api
-  text: API 中转站文档
-  tagline: 使用 OpenAI 兼容接口和 Claude/Anthropic 兼容接口，把 Kokomi-api 接入你的应用、脚本或客户端。
-  image:
-    src: /kokomi-api.png
-    alt: Kokomi-api
-  actions:
-    - theme: brand
-      text: 快速开始
-      link: /quick-start
-    - theme: alt
-      text: 打开控制台
-      link: https://kokomi-api.cc
-
-features:
-  - title: OpenAI 兼容
-    details: 使用熟悉的 `/v1/chat/completions` 调用方式，只需要替换 Base URL 和 API Key。
-    link: /openai
-    linkText: 查看教程
-  - title: Claude/Anthropic 兼容
-    details: 支持按 Anthropic 风格发送消息请求，适合 Claude 生态客户端和 SDK。
-    link: /claude
-    linkText: 查看教程
-  - title: 常见问题
-    details: 汇总令牌复制、余额显示、请求超时等接入时最常见的问题。
-    link: /faq
-    linkText: 查看 FAQ
+title: Kokomi-api 文档
+description: Kokomi-api API 中转站文档
+aside: false
+outline: false
+prev: false
+next: false
 ---
 
-## 接入信息
+# Kokomi-api 文档
+
+Kokomi-api 提供 OpenAI 兼容接口和 Claude/Anthropic 兼容接口。你可以把它接入支持自定义 Base URL 的应用、脚本、SDK 或客户端。
+
+## 接入信息 {#integration-details}
 
 | 项目 | 地址 |
 | --- | --- |
@@ -40,11 +20,265 @@ features:
 | API Key 管理 | [https://kokomi-api.cc/console/token](https://kokomi-api.cc/console/token) |
 | OpenAI 兼容 Base URL | `https://kokomi-api.cc/v1` |
 | Claude/Anthropic 兼容 Base URL | `https://kokomi-api.cc` |
+| 充值比例 | `1¥ = 1$` |
 
-## 计费说明
+## 快速开始 {#quick-start}
 
-充值比例：`1¥ = 1$`。
+### 1. 注册账号
 
-## 支持
+打开 [注册入口](https://kokomi-api.cc/register) 创建账号。注册完成后，进入 [控制台](https://kokomi-api.cc)。
 
-支持联系方式待补充。
+### 2. 创建或复制 API Key
+
+进入 [API Key 管理页](https://kokomi-api.cc/console/token)，创建一个令牌并完整复制。
+
+复制后请确认：
+
+- 令牌前后没有多余空格或换行。
+- OpenAI 兼容请求使用 `Authorization: Bearer <KOKOMI_API_KEY>`。
+- Claude/Anthropic 兼容请求使用 `x-api-key: <KOKOMI_API_KEY>`。
+- 不要把令牌提交到公开仓库、前端代码或截图中。
+
+### 3. 确认余额
+
+在控制台确认余额可用。充值比例为 `1¥ = 1$`。
+
+如果充值后余额没有立即显示，请刷新控制台并稍等片刻；仍未恢复时，保留订单信息并联系支持。支持联系方式待补充。
+
+### 4. 发送第一次请求
+
+OpenAI 兼容接口的测试请求：
+
+```bash
+curl https://kokomi-api.cc/v1/chat/completions \
+  -H "Authorization: Bearer <KOKOMI_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "<model>",
+    "messages": [
+      {
+        "role": "user",
+        "content": "你好，请用一句话介绍 Kokomi-api。"
+      }
+    ]
+  }'
+```
+
+Claude/Anthropic 兼容接口的测试请求：
+
+```bash
+curl https://kokomi-api.cc/v1/messages \
+  -H "x-api-key: <KOKOMI_API_KEY>" \
+  -H "anthropic-version: 2023-06-01" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "<model>",
+    "max_tokens": 512,
+    "messages": [
+      {
+        "role": "user",
+        "content": "你好，请用一句话介绍 Kokomi-api。"
+      }
+    ]
+  }'
+```
+
+## OpenAI 兼容接口 {#openai-compatible-api}
+
+大多数支持自定义 Base URL 的 OpenAI 客户端，只需要替换 `base_url` 和 API Key。
+
+### 基础信息
+
+| 项目 | 值 |
+| --- | --- |
+| Base URL | `https://kokomi-api.cc/v1` |
+| API Key | 在 [API Key 管理页](https://kokomi-api.cc/console/token) 创建 |
+| 鉴权 Header | `Authorization: Bearer <KOKOMI_API_KEY>` |
+| 示例接口 | `/chat/completions` |
+
+### curl 示例
+
+```bash
+curl https://kokomi-api.cc/v1/chat/completions \
+  -H "Authorization: Bearer <KOKOMI_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "<model>",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Say hello from Kokomi-api."
+      }
+    ]
+  }'
+```
+
+### Python 示例
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    api_key="<KOKOMI_API_KEY>",
+    base_url="https://kokomi-api.cc/v1",
+)
+
+response = client.chat.completions.create(
+    model="<model>",
+    messages=[
+        {"role": "user", "content": "Say hello from Kokomi-api."},
+    ],
+)
+
+print(response.choices[0].message.content)
+```
+
+### JavaScript 示例
+
+```js
+import OpenAI from 'openai'
+
+const client = new OpenAI({
+  apiKey: process.env.KOKOMI_API_KEY,
+  baseURL: 'https://kokomi-api.cc/v1'
+})
+
+const response = await client.chat.completions.create({
+  model: '<model>',
+  messages: [
+    { role: 'user', content: 'Say hello from Kokomi-api.' }
+  ]
+})
+
+console.log(response.choices[0].message.content)
+```
+
+### 配置要点
+
+- Base URL 填写 `https://kokomi-api.cc/v1`。
+- API Key 使用 Kokomi-api 控制台中的令牌。
+- 模型名称按你的实际可用模型填写为 `<model>`。
+- 如果客户端已经自动补全 `/v1`，请不要重复填写 `/v1/v1`。
+
+## Claude/Anthropic 兼容接口 {#claude-anthropic-compatible-api}
+
+Claude/Anthropic 兼容接口适合支持 Anthropic Base URL 配置的 SDK、脚本和客户端。
+
+### 基础信息
+
+| 项目 | 值 |
+| --- | --- |
+| Base URL | `https://kokomi-api.cc` |
+| API Key | 在 [API Key 管理页](https://kokomi-api.cc/console/token) 创建 |
+| 鉴权 Header | `x-api-key: <KOKOMI_API_KEY>` |
+| 版本 Header | `anthropic-version: 2023-06-01` |
+| 示例接口 | `/v1/messages` |
+
+### curl 示例
+
+```bash
+curl https://kokomi-api.cc/v1/messages \
+  -H "x-api-key: <KOKOMI_API_KEY>" \
+  -H "anthropic-version: 2023-06-01" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "<model>",
+    "max_tokens": 512,
+    "messages": [
+      {
+        "role": "user",
+        "content": "Say hello from Kokomi-api."
+      }
+    ]
+  }'
+```
+
+### 环境变量示例
+
+```bash
+export ANTHROPIC_API_KEY="<KOKOMI_API_KEY>"
+export ANTHROPIC_BASE_URL="https://kokomi-api.cc"
+```
+
+如果你的工具使用不同的变量名，请以该工具的配置说明为准，核心保持一致：Base URL 使用 `https://kokomi-api.cc`，API Key 使用 Kokomi-api 令牌。
+
+### Python 示例
+
+```python
+from anthropic import Anthropic
+
+client = Anthropic(
+    api_key="<KOKOMI_API_KEY>",
+    base_url="https://kokomi-api.cc",
+)
+
+message = client.messages.create(
+    model="<model>",
+    max_tokens=512,
+    messages=[
+        {"role": "user", "content": "Say hello from Kokomi-api."},
+    ],
+)
+
+print(message.content[0].text)
+```
+
+### JavaScript 示例
+
+```js
+import Anthropic from '@anthropic-ai/sdk'
+
+const anthropic = new Anthropic({
+  apiKey: process.env.KOKOMI_API_KEY,
+  baseURL: 'https://kokomi-api.cc'
+})
+
+const message = await anthropic.messages.create({
+  model: '<model>',
+  max_tokens: 512,
+  messages: [
+    { role: 'user', content: 'Say hello from Kokomi-api.' }
+  ]
+})
+
+console.log(message.content[0].text)
+```
+
+### 配置要点
+
+- Base URL 填写 `https://kokomi-api.cc`，请求路径为 `/v1/messages`。
+- Header 中必须包含 `x-api-key` 和 `anthropic-version`。
+- 模型名称按你的实际可用模型填写为 `<model>`。
+- 如果客户端要求填写完整 endpoint，请使用 `https://kokomi-api.cc/v1/messages`。
+
+## 常见问题 {#faq}
+
+### 令牌复制不完整怎么办？
+
+请回到 [API Key 管理页](https://kokomi-api.cc/console/token)，重新复制完整令牌。常见问题包括少复制了开头或结尾、粘贴时带入换行、把 `Bearer` 和令牌之间的空格删掉。
+
+如果你已经把令牌暴露到公开位置，建议立即删除旧令牌并创建新令牌。
+
+### 充值后余额未显示怎么办？
+
+请先刷新控制台，确认登录账号是否正确，并等待余额同步完成。充值比例为 `1¥ = 1$`。
+
+如果长时间仍未显示，请保留订单号、充值时间、充值金额和账号信息，再联系支持。
+
+### API 请求超时怎么办？
+
+请求超时通常和网络、请求体大小、模型响应耗时或客户端超时设置有关。可以按下面顺序排查：
+
+1. 确认 Base URL 是否填写正确。
+2. 降低 `max_tokens` 或缩短输入内容后重试。
+3. 增加客户端 timeout。
+4. 对临时失败增加重试和退避。
+5. 如果只有某个模型超时，尝试换用其他可用模型验证。
+
+## 支持 {#support}
+
+支持联系方式待补充。联系支持时，请尽量提供请求时间、错误信息、请求类型、是否完成充值，以及脱敏后的请求 ID 或日志片段。

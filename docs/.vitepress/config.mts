@@ -4,6 +4,24 @@ const domain = 'https://docs.kokomi-api.cc'
 const base = '/'
 const previewImage = `${domain}/kokomi-api.png`
 
+const rootSidebar = [
+  { text: '接入信息', link: '/#integration-details' },
+  { text: '快速开始', link: '/#quick-start' },
+  { text: 'OpenAI 兼容接口', link: '/#openai-compatible-api' },
+  { text: 'Claude/Anthropic 兼容接口', link: '/#claude-anthropic-compatible-api' },
+  { text: '常见问题', link: '/#faq' },
+  { text: '支持', link: '/#support' }
+]
+
+const enSidebar = [
+  { text: 'Integration Details', link: '/en/#integration-details' },
+  { text: 'Quick Start', link: '/en/#quick-start' },
+  { text: 'OpenAI-Compatible API', link: '/en/#openai-compatible-api' },
+  { text: 'Claude/Anthropic-Compatible API', link: '/en/#claude-anthropic-compatible-api' },
+  { text: 'FAQ', link: '/en/#faq' },
+  { text: 'Support', link: '/en/#support' }
+]
+
 export default defineConfig({
   title: 'Kokomi-api',
   description: 'Kokomi-api API relay documentation',
@@ -36,41 +54,14 @@ export default defineConfig({
       description: 'Kokomi-api API 中转站文档',
       themeConfig: {
         nav: [
-          { text: '快速开始', link: '/quick-start' },
-          { text: 'OpenAI 兼容', link: '/openai' },
-          { text: 'Claude 兼容', link: '/claude' },
-          { text: '常见问题', link: '/faq' },
           { text: '控制台', link: 'https://kokomi-api.cc' }
         ],
-        sidebar: [
-          {
-            text: '开始',
-            items: [
-              { text: '首页', link: '/' },
-              { text: '快速开始', link: '/quick-start' }
-            ]
-          },
-          {
-            text: 'API 接入',
-            items: [
-              { text: 'OpenAI 兼容', link: '/openai' },
-              { text: 'Claude/Anthropic 兼容', link: '/claude' }
-            ]
-          },
-          {
-            text: '帮助',
-            items: [
-              { text: '常见问题', link: '/faq' }
-            ]
-          }
-        ],
+        sidebar: rootSidebar,
         docFooter: {
           prev: '上一页',
           next: '下一页'
         },
-        outline: {
-          label: '页面目录'
-        },
+        outline: false,
         lastUpdated: {
           text: '最后更新'
         }
@@ -83,34 +74,10 @@ export default defineConfig({
       description: 'Kokomi-api API relay documentation',
       themeConfig: {
         nav: [
-          { text: 'Quick Start', link: '/en/quick-start' },
-          { text: 'OpenAI Compatible', link: '/en/openai' },
-          { text: 'Claude Compatible', link: '/en/claude' },
-          { text: 'FAQ', link: '/en/faq' },
           { text: 'Console', link: 'https://kokomi-api.cc' }
         ],
-        sidebar: [
-          {
-            text: 'Start',
-            items: [
-              { text: 'Home', link: '/en/' },
-              { text: 'Quick Start', link: '/en/quick-start' }
-            ]
-          },
-          {
-            text: 'API Integration',
-            items: [
-              { text: 'OpenAI Compatible', link: '/en/openai' },
-              { text: 'Claude/Anthropic Compatible', link: '/en/claude' }
-            ]
-          },
-          {
-            text: 'Help',
-            items: [
-              { text: 'FAQ', link: '/en/faq' }
-            ]
-          }
-        ]
+        sidebar: enSidebar,
+        outline: false
       }
     }
   },
@@ -120,13 +87,8 @@ export default defineConfig({
     search: {
       provider: 'local'
     },
-    socialLinks: [
-      {
-        icon: 'github',
-        link: 'https://github.com/',
-        ariaLabel: 'GitHub placeholder'
-      }
-    ],
+    outline: false,
+    aside: false,
     footer: {
       message: 'Kokomi-api API relay documentation.',
       copyright: 'Copyright © 2026 Kokomi-api'

@@ -1,37 +1,17 @@
 ---
-layout: home
-
-hero:
-  name: Kokomi-api
-  text: API Relay Documentation
-  tagline: Connect Kokomi-api to your app, script, or client through OpenAI-compatible and Claude/Anthropic-compatible APIs.
-  image:
-    src: /kokomi-api.png
-    alt: Kokomi-api
-  actions:
-    - theme: brand
-      text: Quick Start
-      link: /en/quick-start
-    - theme: alt
-      text: Open Console
-      link: https://kokomi-api.cc
-
-features:
-  - title: OpenAI Compatible
-    details: Use the familiar `/v1/chat/completions` flow by replacing the Base URL and API key.
-    link: /en/openai
-    linkText: Read the guide
-  - title: Claude/Anthropic Compatible
-    details: Send Anthropic-style message requests for Claude ecosystem clients and SDKs.
-    link: /en/claude
-    linkText: Read the guide
-  - title: FAQ
-    details: Find quick answers for token copying, balance display, request timeouts, and other common issues.
-    link: /en/faq
-    linkText: Open FAQ
+title: Kokomi-api Docs
+description: Kokomi-api API relay documentation
+aside: false
+outline: false
+prev: false
+next: false
 ---
 
-## Integration Details
+# Kokomi-api Docs
+
+Kokomi-api provides OpenAI-compatible and Claude/Anthropic-compatible APIs. You can connect it to apps, scripts, SDKs, or clients that support custom Base URLs.
+
+## Integration Details {#integration-details}
 
 | Item | URL |
 | --- | --- |
@@ -40,11 +20,265 @@ features:
 | API key management | [https://kokomi-api.cc/console/token](https://kokomi-api.cc/console/token) |
 | OpenAI-compatible Base URL | `https://kokomi-api.cc/v1` |
 | Claude/Anthropic-compatible Base URL | `https://kokomi-api.cc` |
+| Top-up rate | `1 CNY = 1 USD credit` |
 
-## Billing
+## Quick Start {#quick-start}
 
-Top-up rate: `1 CNY = 1 USD credit`.
+### 1. Register an account
 
-## Support
+Open the [registration page](https://kokomi-api.cc/register) and create an account. After registration, open the [console](https://kokomi-api.cc).
 
-Support contact to be added.
+### 2. Create or copy an API key
+
+Go to [API key management](https://kokomi-api.cc/console/token), create a token, and copy it completely.
+
+Before using it, confirm that:
+
+- There are no extra spaces or line breaks before or after the token.
+- OpenAI-compatible requests use `Authorization: Bearer <KOKOMI_API_KEY>`.
+- Claude/Anthropic-compatible requests use `x-api-key: <KOKOMI_API_KEY>`.
+- You do not commit the token to public repositories, frontend code, or screenshots.
+
+### 3. Check your balance
+
+Confirm that your console balance is available. Top-up rate: `1 CNY = 1 USD credit`.
+
+If the balance does not appear immediately after payment, refresh the console and wait briefly. If it still does not recover, keep the order details and contact support. Support contact to be added.
+
+### 4. Send your first request
+
+OpenAI-compatible test request:
+
+```bash
+curl https://kokomi-api.cc/v1/chat/completions \
+  -H "Authorization: Bearer <KOKOMI_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "<model>",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello, introduce Kokomi-api in one sentence."
+      }
+    ]
+  }'
+```
+
+Claude/Anthropic-compatible test request:
+
+```bash
+curl https://kokomi-api.cc/v1/messages \
+  -H "x-api-key: <KOKOMI_API_KEY>" \
+  -H "anthropic-version: 2023-06-01" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "<model>",
+    "max_tokens": 512,
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello, introduce Kokomi-api in one sentence."
+      }
+    ]
+  }'
+```
+
+## OpenAI-Compatible API {#openai-compatible-api}
+
+Most OpenAI clients that support a custom Base URL only need a different `base_url` and API key.
+
+### Basic information
+
+| Item | Value |
+| --- | --- |
+| Base URL | `https://kokomi-api.cc/v1` |
+| API key | Create one in [API key management](https://kokomi-api.cc/console/token) |
+| Auth header | `Authorization: Bearer <KOKOMI_API_KEY>` |
+| Example endpoint | `/chat/completions` |
+
+### curl example
+
+```bash
+curl https://kokomi-api.cc/v1/chat/completions \
+  -H "Authorization: Bearer <KOKOMI_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "<model>",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {
+        "role": "user",
+        "content": "Say hello from Kokomi-api."
+      }
+    ]
+  }'
+```
+
+### Python example
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    api_key="<KOKOMI_API_KEY>",
+    base_url="https://kokomi-api.cc/v1",
+)
+
+response = client.chat.completions.create(
+    model="<model>",
+    messages=[
+        {"role": "user", "content": "Say hello from Kokomi-api."},
+    ],
+)
+
+print(response.choices[0].message.content)
+```
+
+### JavaScript example
+
+```js
+import OpenAI from 'openai'
+
+const client = new OpenAI({
+  apiKey: process.env.KOKOMI_API_KEY,
+  baseURL: 'https://kokomi-api.cc/v1'
+})
+
+const response = await client.chat.completions.create({
+  model: '<model>',
+  messages: [
+    { role: 'user', content: 'Say hello from Kokomi-api.' }
+  ]
+})
+
+console.log(response.choices[0].message.content)
+```
+
+### Configuration notes
+
+- Use `https://kokomi-api.cc/v1` as the Base URL.
+- Use the token from the Kokomi-api console as your API key.
+- Fill `<model>` with an actual model name available to your account.
+- If your client automatically appends `/v1`, do not configure `/v1/v1`.
+
+## Claude/Anthropic-Compatible API {#claude-anthropic-compatible-api}
+
+The Claude/Anthropic-compatible API is for SDKs, scripts, and clients that support an Anthropic Base URL.
+
+### Basic information
+
+| Item | Value |
+| --- | --- |
+| Base URL | `https://kokomi-api.cc` |
+| API key | Create one in [API key management](https://kokomi-api.cc/console/token) |
+| Auth header | `x-api-key: <KOKOMI_API_KEY>` |
+| Version header | `anthropic-version: 2023-06-01` |
+| Example endpoint | `/v1/messages` |
+
+### curl example
+
+```bash
+curl https://kokomi-api.cc/v1/messages \
+  -H "x-api-key: <KOKOMI_API_KEY>" \
+  -H "anthropic-version: 2023-06-01" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "<model>",
+    "max_tokens": 512,
+    "messages": [
+      {
+        "role": "user",
+        "content": "Say hello from Kokomi-api."
+      }
+    ]
+  }'
+```
+
+### Environment variables
+
+```bash
+export ANTHROPIC_API_KEY="<KOKOMI_API_KEY>"
+export ANTHROPIC_BASE_URL="https://kokomi-api.cc"
+```
+
+If your tool uses different variable names, follow that tool's configuration guide. The core values remain the same: use `https://kokomi-api.cc` as the Base URL and your Kokomi-api token as the API key.
+
+### Python example
+
+```python
+from anthropic import Anthropic
+
+client = Anthropic(
+    api_key="<KOKOMI_API_KEY>",
+    base_url="https://kokomi-api.cc",
+)
+
+message = client.messages.create(
+    model="<model>",
+    max_tokens=512,
+    messages=[
+        {"role": "user", "content": "Say hello from Kokomi-api."},
+    ],
+)
+
+print(message.content[0].text)
+```
+
+### JavaScript example
+
+```js
+import Anthropic from '@anthropic-ai/sdk'
+
+const anthropic = new Anthropic({
+  apiKey: process.env.KOKOMI_API_KEY,
+  baseURL: 'https://kokomi-api.cc'
+})
+
+const message = await anthropic.messages.create({
+  model: '<model>',
+  max_tokens: 512,
+  messages: [
+    { role: 'user', content: 'Say hello from Kokomi-api.' }
+  ]
+})
+
+console.log(message.content[0].text)
+```
+
+### Configuration notes
+
+- Use `https://kokomi-api.cc` as the Base URL and `/v1/messages` as the request path.
+- Include both `x-api-key` and `anthropic-version` headers.
+- Fill `<model>` with an actual model name available to your account.
+- If your client asks for a full endpoint, use `https://kokomi-api.cc/v1/messages`.
+
+## FAQ {#faq}
+
+### What if the token was not copied completely?
+
+Go back to [API key management](https://kokomi-api.cc/console/token) and copy the complete token again. Common causes include missing the first or last characters, pasting a line break, or deleting the space between `Bearer` and the token.
+
+If the token has been exposed publicly, delete the old token and create a new one.
+
+### What if my balance does not appear after payment?
+
+Refresh the console, confirm that you are logged in to the correct account, and wait briefly for balance synchronization. Top-up rate: `1 CNY = 1 USD credit`.
+
+If the balance still does not appear, keep the order number, payment time, amount, and account information, then contact support.
+
+### What if API requests time out?
+
+Timeouts are often related to network conditions, request size, model response time, or client timeout settings. Check in this order:
+
+1. Confirm that the Base URL is correct.
+2. Reduce `max_tokens` or shorten the input, then retry.
+3. Increase the client timeout.
+4. Add retries with backoff for temporary failures.
+5. If only one model times out, try another available model to compare.
+
+## Support {#support}
+
+Support contact to be added. When contacting support, include the request time, error message, request type, payment status, and a redacted request ID or log snippet when possible.
