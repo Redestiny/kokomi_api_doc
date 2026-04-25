@@ -6,7 +6,7 @@ hero:
   text: API Relay Documentation
   tagline: Connect Kokomi-api to your app, script, or client through OpenAI-compatible and Claude/Anthropic-compatible APIs.
   image:
-    src: /kokomi-logo.svg
+    src: /kokomi-api.png
     alt: Kokomi-api
   actions:
     - theme: brand

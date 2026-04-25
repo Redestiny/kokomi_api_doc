@@ -6,7 +6,7 @@ hero:
   text: API 中转站文档
   tagline: 使用 OpenAI 兼容接口和 Claude/Anthropic 兼容接口，把 Kokomi-api 接入你的应用、脚本或客户端。
   image:
-    src: /kokomi-logo.svg
+    src: /kokomi-api.png
     alt: Kokomi-api
   actions:
     - theme: brand

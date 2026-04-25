@@ -1,6 +1,6 @@
 # Kokomi-api Docs
 
-VitePress documentation site for Kokomi-api, published through GitHub Pages at `https://doc.kokomi-api.cc`.
+VitePress documentation site for Kokomi-api, published through GitHub Pages at `https://docs.kokomi-api.cc`.
 
 ## Local Development
 

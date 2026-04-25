@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitepress'
 
-const domain = 'https://doc.kokomi-api.cc'
+const domain = 'https://docs.kokomi-api.cc'
 
 export default defineConfig({
   title: 'Kokomi-api',
@@ -104,7 +104,7 @@ export default defineConfig({
     }
   },
   themeConfig: {
-    logo: '/kokomi-logo.svg',
+    logo: '/kokomi-api.png',
     siteTitle: 'Kokomi-api',
     search: {
       provider: 'local'
