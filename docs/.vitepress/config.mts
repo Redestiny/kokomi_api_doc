@@ -2,6 +2,7 @@ import { defineConfig } from 'vitepress'
 
 const domain = 'https://docs.kokomi-api.cc'
 const base = '/'
+const previewImage = `${domain}/kokomi-api.png`
 
 export default defineConfig({
   title: 'Kokomi-api',
@@ -14,9 +15,18 @@ export default defineConfig({
   },
   head: [
     ['link', { rel: 'icon', href: '/favicon.svg' }],
+    ['link', { rel: 'apple-touch-icon', href: '/kokomi-api.png' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: 'Kokomi-api Docs' }],
-    ['meta', { property: 'og:url', content: domain }]
+    ['meta', { property: 'og:title', content: 'Kokomi-api Docs' }],
+    ['meta', { property: 'og:description', content: 'Kokomi-api API relay documentation' }],
+    ['meta', { property: 'og:url', content: domain }],
+    ['meta', { property: 'og:image', content: previewImage }],
+    ['meta', { property: 'og:image:alt', content: 'Kokomi-api' }],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:title', content: 'Kokomi-api Docs' }],
+    ['meta', { name: 'twitter:description', content: 'Kokomi-api API relay documentation' }],
+    ['meta', { name: 'twitter:image', content: previewImage }]
   ],
   locales: {
     root: {
