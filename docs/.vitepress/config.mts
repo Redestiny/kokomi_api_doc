@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress'
 
 const domain = 'https://docs.kokomi-api.cc'
-const base = process.env.VITEPRESS_BASE || '/kokomi_api_doc/'
+const base = '/'
 
 export default defineConfig({
   title: 'Kokomi-api',
@@ -13,7 +13,7 @@ export default defineConfig({
     hostname: domain
   },
   head: [
-    ['link', { rel: 'icon', href: `${base}favicon.svg` }],
+    ['link', { rel: 'icon', href: '/favicon.svg' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: 'Kokomi-api Docs' }],
     ['meta', { property: 'og:url', content: domain }]

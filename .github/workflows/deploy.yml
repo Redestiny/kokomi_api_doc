@@ -15,9 +15,6 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
-env:
-  VITEPRESS_BASE: ${{ vars.VITEPRESS_BASE }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
