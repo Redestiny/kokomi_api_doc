@@ -305,11 +305,17 @@ Claude Code 使用 Anthropic 兼容接口。
   }
 }
 ```
+如果卡在登录页请在`~/.claude.json`中添加`hasCompletedOnboarding`参数：
+```json
+{
+  "hasCompletedOnboarding": true
+}
+```
 
 注意事项：
 
 - Claude Code 的 Base URL 填写 `https://kokomi-api.cc`，不要在这里额外追加 `/v1/messages`。
-- 请将 sk-xxxxxxxxxxxxxxxx 替换为您在Kokomi-api令牌管理生成的令牌。
+- 请将 `sk-xxxxxxxxxxxxxxxx` 替换为您在Kokomi-api令牌管理生成的令牌。
 - 如果你把 `.claude/settings.json` 放在项目目录中，请不要写入真实 API Key。
 - 如果工具提示需要重新登录或仍访问官方地址，请重启终端后再运行 `claude`。
 
