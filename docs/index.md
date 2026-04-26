@@ -9,7 +9,7 @@ next: false
 
 # Kokomi-api 文档
 
-Kokomi-api 提供 OpenAI 兼容接口和 Claude/Anthropic 兼容接口。你可以把它接入支持自定义 Base URL 的应用、脚本、SDK 或客户端。
+Kokomi-api 提供 OpenAI 兼容接口和 Anthropic 兼容接口。支持claudecode与codex。
 
 ## 接入信息 {#integration-details}
 
@@ -162,7 +162,7 @@ console.log(response.choices[0].message.content)
 - 模型名称按你的实际可用模型填写为 `<model>`。
 - 如果客户端已经自动补全 `/v1`，请不要重复填写 `/v1/v1`。
 
-## Claude/Anthropic 兼容接口 {#claude-anthropic-compatible-api}
+## Anthropic 兼容接口 {#claude-anthropic-compatible-api}
 
 Claude/Anthropic 兼容接口适合支持 Anthropic Base URL 配置的 SDK、脚本和客户端。
 
@@ -259,31 +259,28 @@ console.log(message.content[0].text)
 
 ### Codex 配置
 
-Codex 使用 OpenAI 兼容接口。先设置 API Key：
+在.codex文件夹创建（编辑）以下两个文件：
 
-```bash
-export OPENAI_API_KEY="<KOKOMI_API_KEY>"
+Codex 配置文件 `~/.codex/config.toml`：
+```toml:
+model_provider = "kokomi-api"
+model = "gpt-5.5"
+model_reasoning_effort = "high"
+network_access = "enabled"
+disable_response_storage = true
+
+[model_providers.kokomi-api]
+name = "kokomi-api"
+base_url = "https://kokomi-api.cc/v1"
+wire_api = "responses"
+requires_openai_auth = true
 ```
 
-然后编辑 Codex 配置文件 `~/.codex/config.toml`：
-
-```toml
-model = "<model>"
-model_provider = "openai"
-openai_base_url = "https://kokomi-api.cc/v1"
-forced_login_method = "api"
-```
-
-配置后启动 Codex：
-
-```bash
-codex
-```
-
-如果你的 Codex 版本支持通过命令行临时指定模型，也可以这样启动：
-
-```bash
-codex -m <model>
+`~/.codex/auth.json`：
+```json:
+{
+  "OPENAI_API_KEY": "sk-xxxxxxxxxxxxxxxx"
+}
 ```
 
 注意事项：
@@ -295,28 +292,16 @@ codex -m <model>
 
 ### Claude Code 配置
 
-Claude Code 使用 Claude/Anthropic 兼容接口。临时配置可以直接设置环境变量：
+Claude Code 使用 Anthropic 兼容接口。
 
-```bash
-export ANTHROPIC_API_KEY="<KOKOMI_API_KEY>"
-export ANTHROPIC_BASE_URL="https://kokomi-api.cc"
-export ANTHROPIC_MODEL="<model>"
-```
-
-配置后启动 Claude Code：
-
-```bash
-claude
-```
-
-如果希望长期保存在本机用户配置中，可以写入 `~/.claude/settings.json`：
+配置位置： `~/.claude/settings.json`：
 
 ```json
 {
   "env": {
-    "ANTHROPIC_API_KEY": "<KOKOMI_API_KEY>",
+    "ANTHROPIC_API_KEY": "sk-xxxxxxxxxxxxxxxx",
     "ANTHROPIC_BASE_URL": "https://kokomi-api.cc",
-    "ANTHROPIC_MODEL": "<model>"
+    "API_TIMEOUT_MS": "600000"
   }
 }
 ```
@@ -324,7 +309,7 @@ claude
 注意事项：
 
 - Claude Code 的 Base URL 填写 `https://kokomi-api.cc`，不要在这里额外追加 `/v1/messages`。
-- `ANTHROPIC_API_KEY` 使用 Kokomi-api 控制台中的令牌。
+- 请将 sk-xxxxxxxxxxxxxxxx 替换为您在Kokomi-api令牌管理生成的令牌。
 - 如果你把 `.claude/settings.json` 放在项目目录中，请不要写入真实 API Key。
 - 如果工具提示需要重新登录或仍访问官方地址，请重启终端后再运行 `claude`。
 
