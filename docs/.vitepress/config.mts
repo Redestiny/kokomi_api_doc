@@ -9,6 +9,7 @@ const rootSidebar = [
   { text: '快速开始', link: '/#quick-start' },
   { text: 'OpenAI 兼容接口', link: '/#openai-compatible-api' },
   { text: 'Claude/Anthropic 兼容接口', link: '/#claude-anthropic-compatible-api' },
+  { text: 'Codex / Claude Code 配置', link: '/#codex-claude-code-configuration' },
   { text: '常见问题', link: '/#faq' },
   { text: '支持', link: '/#support' }
 ]
@@ -18,6 +19,7 @@ const enSidebar = [
   { text: 'Quick Start', link: '/en/#quick-start' },
   { text: 'OpenAI-Compatible API', link: '/en/#openai-compatible-api' },
   { text: 'Claude/Anthropic-Compatible API', link: '/en/#claude-anthropic-compatible-api' },
+  { text: 'Codex / Claude Code', link: '/en/#codex-claude-code-configuration' },
   { text: 'FAQ', link: '/en/#faq' },
   { text: 'Support', link: '/en/#support' }
 ]
@@ -32,7 +34,8 @@ export default defineConfig({
     hostname: domain
   },
   head: [
-    ['link', { rel: 'icon', href: '/favicon.svg' }],
+    ['link', { rel: 'icon', type: 'image/png', href: '/kokomi-api.png' }],
+    ['link', { rel: 'shortcut icon', type: 'image/png', href: '/kokomi-api.png' }],
     ['link', { rel: 'apple-touch-icon', href: '/kokomi-api.png' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: 'Kokomi-api Docs' }],

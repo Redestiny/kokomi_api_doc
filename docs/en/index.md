@@ -255,6 +255,81 @@ console.log(message.content[0].text)
 - Fill `<model>` with an actual model name available to your account.
 - If your client asks for a full endpoint, use `https://kokomi-api.cc/v1/messages`.
 
+## Codex / Claude Code Configuration {#codex-claude-code-configuration}
+
+This section shows how to connect Kokomi-api to common command-line coding tools. Replace `<KOKOMI_API_KEY>` and `<model>` with your Kokomi-api token and an actual model available to your account.
+
+### Codex
+
+Codex uses the OpenAI-compatible API. First set your API key:
+
+```bash
+export OPENAI_API_KEY="<KOKOMI_API_KEY>"
+```
+
+Then edit the Codex config file at `~/.codex/config.toml`:
+
+```toml
+model = "<model>"
+model_provider = "openai"
+openai_base_url = "https://kokomi-api.cc/v1"
+forced_login_method = "api"
+```
+
+Start Codex after saving the config:
+
+```bash
+codex
+```
+
+If your Codex version supports selecting a model from the command line, you can also start it with:
+
+```bash
+codex -m <model>
+```
+
+Notes:
+
+- Use `https://kokomi-api.cc/v1` as the Codex Base URL.
+- Use your Kokomi-api console token as `OPENAI_API_KEY`.
+- Do not commit API keys to project repositories or public config files.
+- If you see `/responses`, model capability, or authentication errors, confirm that your account, model, and current tool version support the required OpenAI-compatible capability.
+
+### Claude Code
+
+Claude Code uses the Claude/Anthropic-compatible API. For a temporary shell session, set these environment variables:
+
+```bash
+export ANTHROPIC_API_KEY="<KOKOMI_API_KEY>"
+export ANTHROPIC_BASE_URL="https://kokomi-api.cc"
+export ANTHROPIC_MODEL="<model>"
+```
+
+Then start Claude Code:
+
+```bash
+claude
+```
+
+To persist the values in your local user settings, add them to `~/.claude/settings.json`:
+
+```json
+{
+  "env": {
+    "ANTHROPIC_API_KEY": "<KOKOMI_API_KEY>",
+    "ANTHROPIC_BASE_URL": "https://kokomi-api.cc",
+    "ANTHROPIC_MODEL": "<model>"
+  }
+}
+```
+
+Notes:
+
+- Use `https://kokomi-api.cc` as the Claude Code Base URL, without appending `/v1/messages` here.
+- Use your Kokomi-api console token as `ANTHROPIC_API_KEY`.
+- If you store `.claude/settings.json` inside a project directory, do not put a real API key in it.
+- If the tool asks you to log in again or still calls the official endpoint, restart your terminal and run `claude` again.
+
 ## FAQ {#faq}
 
 ### What if the token was not copied completely?
