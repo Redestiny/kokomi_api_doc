@@ -9,7 +9,8 @@ const rootSidebar = [
   { text: '快速开始', link: '/#quick-start' },
   { text: 'OpenAI 兼容接口', link: '/#openai-compatible-api' },
   { text: 'Anthropic 兼容接口', link: '/#claude-anthropic-compatible-api' },
-  { text: 'Codex / Claude Code 配置', link: '/#codex-claude-code-configuration' },
+  { text: 'Codex 配置', link: '/#codex-configuration' },
+  { text: 'Claude Code 配置', link: '/#claude-code-configuration' },
   { text: '常见问题', link: '/#faq' },
   { text: '支持', link: '/#support' }
 ]
@@ -19,7 +20,8 @@ const enSidebar = [
   { text: 'Quick Start', link: '/en/#quick-start' },
   { text: 'OpenAI-Compatible API', link: '/en/#openai-compatible-api' },
   { text: 'Anthropic-Compatible API', link: '/en/#claude-anthropic-compatible-api' },
-  { text: 'Codex / Claude Code', link: '/en/#codex-claude-code-configuration' },
+  { text: 'Codex Configuration', link: '/en/#codex-configuration' },
+  { text: 'Claude Code Configuration', link: '/en/#claude-code-configuration' },
   { text: 'FAQ', link: '/en/#faq' },
   { text: 'Support', link: '/en/#support' }
 ]

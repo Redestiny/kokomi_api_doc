@@ -253,16 +253,14 @@ console.log(message.content[0].text)
 - 模型名称按你的实际可用模型填写为 `<model>`。
 - 如果客户端要求填写完整 endpoint，请使用 `https://kokomi-api.cc/v1/messages`。
 
-## Codex / Claude Code 配置 {#codex-claude-code-configuration}
+## Codex 配置 {#codex-configuration}
 
-本节用于把 Kokomi-api 配置到常见的命令行编程工具中。示例继续使用 `<KOKOMI_API_KEY>` 和 `<model>` 占位，请替换为你控制台中的令牌和实际可用模型。
-
-### Codex 配置
+本节用于把 Kokomi-api 配置到 Codex 中。示例继续使用 `<KOKOMI_API_KEY>` 和 `<model>` 占位，请替换为你控制台中的令牌和实际可用模型。
 
 在.codex文件夹创建（编辑）以下两个文件：
 
 Codex 配置文件 `~/.codex/config.toml`：
-```toml:
+```toml
 model_provider = "kokomi-api"
 model = "gpt-5.5"
 model_reasoning_effort = "high"
@@ -277,7 +275,7 @@ requires_openai_auth = true
 ```
 
 `~/.codex/auth.json`：
-```json:
+```json
 {
   "OPENAI_API_KEY": "sk-xxxxxxxxxxxxxxxx"
 }
@@ -290,7 +288,7 @@ requires_openai_auth = true
 - 不要把 API Key 写入项目仓库或公开配置文件。
 - 如果出现 `/responses`、模型能力或鉴权相关错误，请确认你的账号、模型和当前工具版本是否支持对应的 OpenAI 兼容能力。
 
-### Claude Code 配置
+## Claude Code 配置 {#claude-code-configuration}
 
 Claude Code 使用 Anthropic 兼容接口。
 

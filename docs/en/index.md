@@ -255,11 +255,9 @@ console.log(message.content[0].text)
 - Fill `<model>` with an actual model name available to your account.
 - If your client asks for a full endpoint, use `https://kokomi-api.cc/v1/messages`.
 
-## Codex / Claude Code Configuration {#codex-claude-code-configuration}
+## Codex Configuration {#codex-configuration}
 
-This section shows how to connect Kokomi-api to common command-line coding tools. Replace `<KOKOMI_API_KEY>` and `<model>` with your Kokomi-api token and an actual model available to your account.
-
-### Codex
+This section shows how to connect Kokomi-api to Codex. Replace `<KOKOMI_API_KEY>` and `<model>` with your Kokomi-api token and an actual model available to your account.
 
 Codex uses the OpenAI-compatible API. First set your API key:
 
@@ -295,7 +293,7 @@ Notes:
 - Do not commit API keys to project repositories or public config files.
 - If you see `/responses`, model capability, or authentication errors, confirm that your account, model, and current tool version support the required OpenAI-compatible capability.
 
-### Claude Code
+## Claude Code Configuration {#claude-code-configuration}
 
 Claude Code uses the Claude/Anthropic-compatible API. For a temporary shell session, set these environment variables:
 
