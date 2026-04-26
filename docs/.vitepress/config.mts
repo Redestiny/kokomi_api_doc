@@ -59,7 +59,7 @@ export default defineConfig({
       description: 'Kokomi-api API 中转站文档',
       themeConfig: {
         nav: [
-          { text: '控制台', link: 'https://kokomi-api.cc' }
+          { text: '控制台', link: 'https://kokomi-api.cc/console' }
         ],
         sidebar: rootSidebar,
         docFooter: {
@@ -79,7 +79,7 @@ export default defineConfig({
       description: 'Kokomi-api API relay documentation',
       themeConfig: {
         nav: [
-          { text: 'Console', link: 'https://kokomi-api.cc' }
+          { text: 'Console', link: 'https://kokomi-api.cc/console' }
         ],
         sidebar: enSidebar,
         outline: false
