@@ -1,6 +1,6 @@
 ---
 title: Kokomi-api Docs
-description: Kokomi-api API relay documentation
+description: Kokomi-api native Responses API and Anthropic-compatible API documentation
 aside: false
 outline: false
 prev: false
@@ -9,106 +9,78 @@ next: false
 
 # Kokomi-api Docs
 
-Kokomi-api provides OpenAI-compatible and Claude/Anthropic-compatible APIs. You can connect it to apps, scripts, SDKs, or clients that support custom Base URLs.
+Kokomi-api is powered by New API and provides a native OpenAI Responses API plus an Anthropic-compatible API for Codex, Claude Code, SDKs, and clients that support custom Base URLs.
 
 ## Integration Details {#integration-details}
 
 | Item | URL |
 | --- | --- |
-| Main site and console | [https://kokomi-api.cc](https://kokomi-api.cc) |
-| Registration | [https://kokomi-api.cc/register](https://kokomi-api.cc/register) |
-| API key management | [https://kokomi-api.cc/console/token](https://kokomi-api.cc/console/token) |
-| OpenAI-compatible Base URL | `https://kokomi-api.cc/v1` |
-| Claude/Anthropic-compatible Base URL | `https://kokomi-api.cc` |
-| Top-up rate | `1 CNY = 1 USD credit` |
+| Website | [https://kokomi-api.cc](https://kokomi-api.cc) |
+| Dashboard | [https://kokomi-api.cc/dashboard](https://kokomi-api.cc/dashboard) |
+| Sign up | [https://kokomi-api.cc/sign-up](https://kokomi-api.cc/sign-up) |
+| Model marketplace | [https://kokomi-api.cc/pricing](https://kokomi-api.cc/pricing) |
+| Responses API Base URL | `https://kokomi-api.cc/v1` |
+| Anthropic API Base URL | `https://kokomi-api.cc` |
+
+Models, groups, protocol support, and prices may change. Before making requests, check the [model marketplace](https://kokomi-api.cc/pricing) for the exact model name, supported endpoints, and current price instead of relying on a fixed list or conversion rate in this documentation.
 
 ## Quick Start {#quick-start}
 
-### 1. Register an account
+### 1. Sign up and sign in
 
-Open the [registration page](https://kokomi-api.cc/register) and create an account. After registration, open the [console](https://kokomi-api.cc).
+Create an account on the [sign-up page](https://kokomi-api.cc/sign-up), then open the [dashboard](https://kokomi-api.cc/dashboard). Existing users can use the [sign-in page](https://kokomi-api.cc/sign-in).
 
-### 2. Create or copy an API key
+### 2. Create an API key
 
-Go to [API key management](https://kokomi-api.cc/console/token), create a token, and copy it completely.
+After signing in, open the token or API key page in the dashboard, create a token, and copy it completely.
 
-Before using it, confirm that:
+- Do not include spaces or line breaks around the token.
+- Do not commit the token to a repository or expose it in frontend code, chats, or screenshots.
+- If a token is exposed, delete it in the dashboard and create a replacement immediately.
 
-- There are no extra spaces or line breaks before or after the token.
-- OpenAI-compatible requests use `Authorization: Bearer <KOKOMI_API_KEY>`.
-- Claude/Anthropic-compatible requests use `x-api-key: <KOKOMI_API_KEY>`.
-- You do not commit the token to public repositories, frontend code, or screenshots.
+### 3. Choose a model
 
-### 3. Check your balance
+Copy the model name from the [model marketplace](https://kokomi-api.cc/pricing) and confirm that it supports your endpoint. Codex needs an OpenAI model with Responses support; Claude Code needs a Claude model with Anthropic endpoint support.
 
-Confirm that your console balance is available. Top-up rate: `1 CNY = 1 USD credit`.
-
-If the balance does not appear immediately after payment, refresh the console and wait briefly. If it still does not recover, keep the order details and contact support. Support contact to be added.
-
-### 4. Send your first request
-
-OpenAI-compatible test request:
+### 4. Send your first Responses request
 
 ```bash
-curl https://kokomi-api.cc/v1/chat/completions \
-  -H "Authorization: Bearer <KOKOMI_API_KEY>" \
+export KOKOMI_API_KEY="<KOKOMI_API_KEY>"
+
+curl https://kokomi-api.cc/v1/responses \
+  -H "Authorization: Bearer $KOKOMI_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
     "model": "<model>",
-    "messages": [
-      {
-        "role": "user",
-        "content": "Hello, introduce Kokomi-api in one sentence."
-      }
-    ]
+    "input": "Introduce Kokomi-api in one sentence."
   }'
 ```
 
-Claude/Anthropic-compatible test request:
+Text is returned inside the `output` array. The official OpenAI SDK exposes the aggregated text as `response.output_text`.
 
-```bash
-curl https://kokomi-api.cc/v1/messages \
-  -H "x-api-key: <KOKOMI_API_KEY>" \
-  -H "anthropic-version: 2023-06-01" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "<model>",
-    "max_tokens": 512,
-    "messages": [
-      {
-        "role": "user",
-        "content": "Hello, introduce Kokomi-api in one sentence."
-      }
-    ]
-  }'
-```
+## OpenAI Responses API {#openai-responses-api}
 
-## OpenAI-Compatible API {#openai-compatible-api}
-
-Most OpenAI clients that support a custom Base URL only need a different `base_url` and API key.
+The native Responses API is the primary OpenAI integration for Kokomi-api. Legacy `POST /v1/chat/completions` examples do not apply to models or groups that only expose the Responses endpoint.
 
 ### Basic information
 
 | Item | Value |
 | --- | --- |
 | Base URL | `https://kokomi-api.cc/v1` |
-| API key | Create one in [API key management](https://kokomi-api.cc/console/token) |
+| Endpoint | `POST /responses` |
+| Full URL | `https://kokomi-api.cc/v1/responses` |
 | Auth header | `Authorization: Bearer <KOKOMI_API_KEY>` |
-| Example endpoint | `/chat/completions` |
+| Request input | `input` |
 
 ### curl example
 
 ```bash
-curl https://kokomi-api.cc/v1/chat/completions \
+curl https://kokomi-api.cc/v1/responses \
   -H "Authorization: Bearer <KOKOMI_API_KEY>" \
   -H "Content-Type: application/json" \
   -d '{
     "model": "<model>",
-    "messages": [
-      {
-        "role": "system",
-        "content": "You are a helpful assistant."
-      },
+    "input": [
       {
         "role": "user",
         "content": "Say hello from Kokomi-api."
@@ -120,21 +92,20 @@ curl https://kokomi-api.cc/v1/chat/completions \
 ### Python example
 
 ```python
+import os
 from openai import OpenAI
 
 client = OpenAI(
-    api_key="<KOKOMI_API_KEY>",
+    api_key=os.environ["KOKOMI_API_KEY"],
     base_url="https://kokomi-api.cc/v1",
 )
 
-response = client.chat.completions.create(
+response = client.responses.create(
     model="<model>",
-    messages=[
-        {"role": "user", "content": "Say hello from Kokomi-api."},
-    ],
+    input="Say hello from Kokomi-api.",
 )
 
-print(response.choices[0].message.content)
+print(response.output_text)
 ```
 
 ### JavaScript example
@@ -147,36 +118,33 @@ const client = new OpenAI({
   baseURL: 'https://kokomi-api.cc/v1'
 })
 
-const response = await client.chat.completions.create({
+const response = await client.responses.create({
   model: '<model>',
-  messages: [
-    { role: 'user', content: 'Say hello from Kokomi-api.' }
-  ]
+  input: 'Say hello from Kokomi-api.'
 })
 
-console.log(response.choices[0].message.content)
+console.log(response.output_text)
 ```
 
 ### Configuration notes
 
-- Use `https://kokomi-api.cc/v1` as the Base URL.
-- Use the token from the Kokomi-api console as your API key.
-- Fill `<model>` with an actual model name available to your account.
-- If your client automatically appends `/v1`, do not configure `/v1/v1`.
+- Set the SDK Base URL to `https://kokomi-api.cc/v1`; the SDK appends `/responses`.
+- For direct HTTP requests, use `https://kokomi-api.cc/v1/responses`.
+- Use the Responses API `input` field instead of a Chat Completions `messages` request body.
+- The model name must exactly match a model in the marketplace that supports the Responses endpoint.
 
-## Claude/Anthropic-Compatible API {#claude-anthropic-compatible-api}
+## Anthropic-Compatible API {#anthropic-compatible-api}
 
-The Claude/Anthropic-compatible API is for SDKs, scripts, and clients that support an Anthropic Base URL.
+Claude Code and Anthropic SDKs use the Anthropic-compatible API. It is separate from the Responses API, so do not mix their paths or request bodies.
 
 ### Basic information
 
 | Item | Value |
 | --- | --- |
 | Base URL | `https://kokomi-api.cc` |
-| API key | Create one in [API key management](https://kokomi-api.cc/console/token) |
+| Endpoint | `POST /v1/messages` |
 | Auth header | `x-api-key: <KOKOMI_API_KEY>` |
 | Version header | `anthropic-version: 2023-06-01` |
-| Example endpoint | `/v1/messages` |
 
 ### curl example
 
@@ -197,22 +165,14 @@ curl https://kokomi-api.cc/v1/messages \
   }'
 ```
 
-### Environment variables
-
-```bash
-export ANTHROPIC_API_KEY="<KOKOMI_API_KEY>"
-export ANTHROPIC_BASE_URL="https://kokomi-api.cc"
-```
-
-If your tool uses different variable names, follow that tool's configuration guide. The core values remain the same: use `https://kokomi-api.cc` as the Base URL and your Kokomi-api token as the API key.
-
 ### Python example
 
 ```python
+import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key="<KOKOMI_API_KEY>",
+    api_key=os.environ["KOKOMI_API_KEY"],
     base_url="https://kokomi-api.cc",
 )
 
@@ -248,110 +208,93 @@ const message = await anthropic.messages.create({
 console.log(message.content[0].text)
 ```
 
-### Configuration notes
-
-- Use `https://kokomi-api.cc` as the Base URL and `/v1/messages` as the request path.
-- Include both `x-api-key` and `anthropic-version` headers.
-- Fill `<model>` with an actual model name available to your account.
-- If your client asks for a full endpoint, use `https://kokomi-api.cc/v1/messages`.
-
 ## Codex Configuration {#codex-configuration}
 
-This section shows how to connect Kokomi-api to Codex. Replace `<KOKOMI_API_KEY>` and `<model>` with your Kokomi-api token and an actual model available to your account.
+Codex connects through the native Responses API. Use a dedicated environment variable for the API key. You do not need to edit `~/.codex/auth.json`, and you should not enable `requires_openai_auth` for this custom provider.
 
-Codex uses the OpenAI-compatible API. First set your API key:
+Set the API key first:
 
 ```bash
-export OPENAI_API_KEY="<KOKOMI_API_KEY>"
+export KOKOMI_API_KEY="<KOKOMI_API_KEY>"
 ```
 
-Then edit the Codex config file at `~/.codex/config.toml`:
+Edit the user-level `~/.codex/config.toml`:
 
 ```toml
 model = "<model>"
-model_provider = "openai"
-openai_base_url = "https://kokomi-api.cc/v1"
-forced_login_method = "api"
+model_provider = "kokomi-api"
+model_reasoning_effort = "high"
+
+[model_providers.kokomi-api]
+name = "Kokomi-api"
+base_url = "https://kokomi-api.cc/v1"
+env_key = "KOKOMI_API_KEY"
+wire_api = "responses"
 ```
 
-Start Codex after saving the config:
+Then start Codex:
 
 ```bash
 codex
 ```
 
-If your Codex version supports selecting a model from the command line, you can also start it with:
-
-```bash
-codex -m <model>
-```
-
 Notes:
 
-- Use `https://kokomi-api.cc/v1` as the Codex Base URL.
-- Use your Kokomi-api console token as `OPENAI_API_KEY`.
-- Do not commit API keys to project repositories or public config files.
-- If you see `/responses`, model capability, or authentication errors, confirm that your account, model, and current tool version support the required OpenAI-compatible capability.
+- `wire_api = "responses"` makes Codex call `POST /v1/responses`.
+- `model_providers` is user-level provider configuration. Put it in `~/.codex/config.toml`, not only in a project `.codex/config.toml`.
+- Replace `<model>` with an exact model name from the marketplace that supports Responses.
+- Legacy `openai_base_url`, `requires_openai_auth = true`, `~/.codex/auth.json`, and top-level `network_access` settings do not apply to this custom provider configuration.
 
 ## Claude Code Configuration {#claude-code-configuration}
 
-Claude Code uses the Claude/Anthropic-compatible API. For a temporary shell session, set these environment variables:
+Claude Code connects through the Anthropic-compatible API. Set these values in the current shell:
 
 ```bash
 export ANTHROPIC_API_KEY="<KOKOMI_API_KEY>"
 export ANTHROPIC_BASE_URL="https://kokomi-api.cc"
 export ANTHROPIC_MODEL="<model>"
-```
 
-Then start Claude Code:
-
-```bash
 claude
 ```
 
-To persist the values in your local user settings, add them to `~/.claude/settings.json`:
+To persist the values, edit the user-level `~/.claude/settings.json`:
 
 ```json
 {
   "env": {
     "ANTHROPIC_API_KEY": "<KOKOMI_API_KEY>",
     "ANTHROPIC_BASE_URL": "https://kokomi-api.cc",
-    "ANTHROPIC_MODEL": "<model>"
+    "ANTHROPIC_MODEL": "<model>",
+    "API_TIMEOUT_MS": "600000"
   }
 }
 ```
 
 Notes:
 
-- Use `https://kokomi-api.cc` as the Claude Code Base URL, without appending `/v1/messages` here.
-- Use your Kokomi-api console token as `ANTHROPIC_API_KEY`.
-- If you store `.claude/settings.json` inside a project directory, do not put a real API key in it.
-- If the tool asks you to log in again or still calls the official endpoint, restart your terminal and run `claude` again.
+- Set the Base URL to `https://kokomi-api.cc` without appending `/v1/messages`.
+- Replace `<model>` with an exact model name from the marketplace that supports the Anthropic endpoint.
+- Restart the `claude` process after changing configuration.
+- Do not commit settings containing a real API key to a project repository.
 
 ## FAQ {#faq}
 
-### What if the token was not copied completely?
+### Why does `/v1/chat/completions` fail?
 
-Go back to [API key management](https://kokomi-api.cc/console/token) and copy the complete token again. Common causes include missing the first or last characters, pasting a line break, or deleting the space between `Bearer` and the token.
+The current OpenAI integration uses the native Responses API. Change the request URL to `/v1/responses` and replace the Chat Completions `messages` body with the Responses API `input` field.
 
-If the token has been exposed publicly, delete the old token and create a new one.
+### Why does Codex still ask me to sign in to OpenAI?
 
-### What if my balance does not appear after payment?
+Confirm that `model_provider` points to the `kokomi-api` custom provider above and that `KOKOMI_API_KEY` is set. Do not set `requires_openai_auth = true` or depend on `~/.codex/auth.json` for the Kokomi-api token.
 
-Refresh the console, confirm that you are logged in to the correct account, and wait briefly for balance synchronization. Top-up rate: `1 CNY = 1 USD credit`.
+### What should I check for a `401` or `403` response?
 
-If the balance still does not appear, keep the order number, payment time, amount, and account information, then contact support.
+Confirm that the token is complete and active, that the environment variable is set in the same shell that launches the client, and that your account can use the selected model. Never include a complete token in logs or screenshots.
 
-### What if API requests time out?
+### What if an API request times out?
 
-Timeouts are often related to network conditions, request size, model response time, or client timeout settings. Check in this order:
-
-1. Confirm that the Base URL is correct.
-2. Reduce `max_tokens` or shorten the input, then retry.
-3. Increase the client timeout.
-4. Add retries with backoff for temporary failures.
-5. If only one model times out, try another available model to compare.
+Confirm the Base URL, endpoint, and model name first. Then shorten the input, reduce the maximum output length, or increase the client timeout. Use a limited exponential-backoff retry for temporary network errors. If only one model fails, compare it with another model that supports the same protocol.
 
 ## Support {#support}
 
-Support contact to be added. When contacting support, include the request time, error message, request type, payment status, and a redacted request ID or log snippet when possible.
+Use the current announcements and support channels published on the [Kokomi-api website](https://kokomi-api.cc). Include the request time, endpoint, model name, HTTP status, and a redacted request ID or log snippet. Never submit a complete API key.

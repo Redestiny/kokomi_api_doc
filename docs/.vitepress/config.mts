@@ -7,8 +7,8 @@ const previewImage = `${domain}/kokomi-api.png`
 const rootSidebar = [
   { text: '接入信息', link: '/#integration-details' },
   { text: '快速开始', link: '/#quick-start' },
-  { text: 'OpenAI 兼容接口', link: '/#openai-compatible-api' },
-  { text: 'Anthropic 兼容接口', link: '/#claude-anthropic-compatible-api' },
+  { text: 'OpenAI Responses API', link: '/#openai-responses-api' },
+  { text: 'Anthropic 兼容接口', link: '/#anthropic-compatible-api' },
   { text: 'Codex 配置', link: '/#codex-configuration' },
   { text: 'Claude Code 配置', link: '/#claude-code-configuration' },
   { text: '常见问题', link: '/#faq' },
@@ -18,8 +18,8 @@ const rootSidebar = [
 const enSidebar = [
   { text: 'Integration Details', link: '/en/#integration-details' },
   { text: 'Quick Start', link: '/en/#quick-start' },
-  { text: 'OpenAI-Compatible API', link: '/en/#openai-compatible-api' },
-  { text: 'Anthropic-Compatible API', link: '/en/#claude-anthropic-compatible-api' },
+  { text: 'OpenAI Responses API', link: '/en/#openai-responses-api' },
+  { text: 'Anthropic-Compatible API', link: '/en/#anthropic-compatible-api' },
   { text: 'Codex Configuration', link: '/en/#codex-configuration' },
   { text: 'Claude Code Configuration', link: '/en/#claude-code-configuration' },
   { text: 'FAQ', link: '/en/#faq' },
@@ -59,7 +59,8 @@ export default defineConfig({
       description: 'Kokomi-api API 中转站文档',
       themeConfig: {
         nav: [
-          { text: '控制台', link: 'https://kokomi-api.cc/console' }
+          { text: '模型广场', link: 'https://kokomi-api.cc/pricing' },
+          { text: '控制台', link: 'https://kokomi-api.cc/dashboard' }
         ],
         sidebar: rootSidebar,
         docFooter: {
@@ -79,7 +80,8 @@ export default defineConfig({
       description: 'Kokomi-api API relay documentation',
       themeConfig: {
         nav: [
-          { text: 'Console', link: 'https://kokomi-api.cc/console' }
+          { text: 'Models', link: 'https://kokomi-api.cc/pricing' },
+          { text: 'Dashboard', link: 'https://kokomi-api.cc/dashboard' }
         ],
         sidebar: enSidebar,
         outline: false
