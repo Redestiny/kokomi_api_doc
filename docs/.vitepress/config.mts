@@ -6,22 +6,32 @@ const previewImage = `${domain}/kokomi-api.png`
 
 const rootSidebar = [
   { text: '接入信息', link: '/#integration-details' },
+  { text: '模型、分组与价格', link: '/#models-and-pricing' },
+  { text: '协议选择', link: '/#protocol-selection' },
   { text: '快速开始', link: '/#quick-start' },
+  { text: 'OpenAI Chat Completions', link: '/#openai-chat-completions' },
   { text: 'OpenAI Responses API', link: '/#openai-responses-api' },
   { text: 'Anthropic 兼容接口', link: '/#anthropic-compatible-api' },
+  { text: 'Gemini 原生接口', link: '/#gemini-api' },
   { text: 'Codex 配置', link: '/#codex-configuration' },
   { text: 'Claude Code 配置', link: '/#claude-code-configuration' },
+  { text: '常用客户端', link: '/#client-configuration' },
   { text: '常见问题', link: '/#faq' },
   { text: '支持', link: '/#support' }
 ]
 
 const enSidebar = [
   { text: 'Integration Details', link: '/en/#integration-details' },
+  { text: 'Models, Groups, and Pricing', link: '/en/#models-and-pricing' },
+  { text: 'Protocol Selection', link: '/en/#protocol-selection' },
   { text: 'Quick Start', link: '/en/#quick-start' },
+  { text: 'OpenAI Chat Completions', link: '/en/#openai-chat-completions' },
   { text: 'OpenAI Responses API', link: '/en/#openai-responses-api' },
   { text: 'Anthropic-Compatible API', link: '/en/#anthropic-compatible-api' },
+  { text: 'Native Gemini API', link: '/en/#gemini-api' },
   { text: 'Codex Configuration', link: '/en/#codex-configuration' },
   { text: 'Claude Code Configuration', link: '/en/#claude-code-configuration' },
+  { text: 'Common Clients', link: '/en/#client-configuration' },
   { text: 'FAQ', link: '/en/#faq' },
   { text: 'Support', link: '/en/#support' }
 ]
