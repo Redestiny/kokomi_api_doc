@@ -29,25 +29,15 @@ Models, groups, protocol support, and prices may change. Before making requests,
 
 Search the [model marketplace](https://kokomi-api.cc/pricing) and filter by provider, group, or endpoint. Cards show model names, groups, endpoints, and prices. Open Details to view Overview, Performance, and API tabs.
 
-### Current model and group snapshot
+### Models and groups
 
-The following public-page snapshot was checked on **2026-10-13**. It helps identify request names; the live website remains authoritative for availability, access, and prices.
-
-| Model names | Displayed groups | Displayed endpoints |
+| Group name | Channels | Notes |
 | --- | --- | --- |
-| `gpt-6-astra`, `gpt-6-luna`, `gpt-6-sol`, `gpt-6.1-sol` | Codex, ChatGPT-Pro | Chat, Response |
-| `claude-haiku-5-5`, `claude-opus-4-6`, `claude-opus-5-5`, `claude-sonnet-4-6`, `claude-sonnet-5-5` | Claude-MAX, ClaudeCode | Anthropic, Chat |
-| `claude-fable-5-1` | Claude-MAX | Anthropic, Chat |
-| `gemini-3.8-flash` | Antigravity | Gemini, Chat |
-
-These are this gateway’s request identifiers. Use Copy model name rather than changing versions, hyphens, or provider prefixes. A group selects token routing and billing; it is not the JSON `model` value. Available token groups are determined by the signed-in dashboard.
-
-### Reading prices
-
-- Select a group and check input, output, cache-read, and cache-write prices. The same model may have different prices in different groups.
-- The marketplace offers Standard / Recharge display modes and `/1M /1K` token units. Compare prices using the same mode, unit, and group.
-- For Dynamic billing models, open Details to check pricing tiers and conditions. A single card price does not describe every request.
-- Performance shows recent statistics. Missing data does not prove a model is unavailable, and historical latency or success rates do not guarantee your next request.
+| `ClaudeCode` | Claude Pro subscriptions and third-party channels such as Kiro, Cursor, and Copilot | Does not provide the `Fable` model |
+| `Claude-MAX` | Pool of Claude MAX accounts with full-price subscriptions | |
+| `Codex` | ChatGPT Plus subscriptions and third-party channels | Subject to the 5-hour usage limit; using the `Astra` model through this group is not recommended |
+| `ChatGPT-Pro` | Pool of ChatGPT Pro subscription accounts | |
+| `Antigravity` | Pool of Google AI Pro subscription accounts | |
 
 ## Protocol Selection {#protocol-selection}
 
