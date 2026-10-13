@@ -29,25 +29,15 @@ Kokomi-api 基于 New API 提供统一 API 网关，支持 OpenAI Chat Completio
 
 在[模型广场](https://kokomi-api.cc/pricing)搜索模型，按供应商、分组或端点筛选。卡片显示模型名称、可用分组、端点和价格；点击「详情」可以查看「概览」「性能」「API」。
 
-### 当前模型与分组
+### 模型与分组
 
-以下为 **2026-10-13** 核对的公开页面快照，仅用于帮助识别名称；新增、下线、权限及价格以网站当前展示为准。
-
-| 模型名称 | 页面显示的分组 | 页面显示的端点 |
+| 分组名称 | 渠道 | 备注 |
 | --- | --- | --- |
-| `gpt-6-astra`、`gpt-6-luna`、`gpt-6-sol`、`gpt-6.1-sol` | Codex、ChatGPT-Pro | Chat、Response |
-| `claude-haiku-5-5`、`claude-opus-4-6`、`claude-opus-5-5`、`claude-sonnet-4-6`、`claude-sonnet-5-5` | Claude-MAX、ClaudeCode | Anthropic、Chat |
-| `claude-fable-5-1` | Claude-MAX | Anthropic、Chat |
-| `gemini-3.8-flash` | Antigravity | Gemini、Chat |
-
-这些名称是本站调用标识。请使用「复制模型名称」得到的完整字符串，不要自行改写版本号、连字符或添加提供商前缀。分组是令牌的路由与计费选择，不是请求 JSON 中的 `model` 值；令牌可选分组以登录后的控制台为准。
-
-### 如何读价格
-
-- 先选择分组，再核对输入、输出、缓存读取及缓存写入的价格；同一模型在不同分组下可能不同。
-- 模型广场可切换「标准 / 充值」显示模式及 `/1M /1K` Token 单位。比较价格时应保持相同模式、单位和分组。
-- 标有「动态计费」的模型请打开详情查看分档价格及适用条件，不要把卡片上的单个价格当作所有请求的固定价格。
-- 「性能」展示近期统计；没有数据不等于模型不可用，历史成功率和延迟也不代表本次请求的保证。
+| `ClaudeCode` | Claude Pro订阅和Kiro、Cursor、Copilot等第三方渠道 | 不提供`Fable`模型 |
+| `Claude-MAX` | Claude MAX正价订阅号池 |  |
+| `Codex` | ChatGPT plus订阅与第三方渠道 | 受5h limit影响，不推荐此渠道使用`Astra`模型 |
+| `ChatGPT-Pro` | ChatGPT Pro订阅号池 |  |
+| `Antigravity` | Google AI Pro订阅号池 | |
 
 ## 协议选择 {#protocol-selection}
 
